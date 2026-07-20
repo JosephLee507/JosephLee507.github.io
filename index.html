@@ -130,6 +130,19 @@
     backdrop-filter:blur(8px);
     border-bottom:1px solid var(--paper-line);
   }
+  .nav-toggle{
+    display:none;
+    flex-direction:column; align-items:center; justify-content:center; gap:5px;
+    width:38px; height:38px; border:1.5px solid var(--ink); border-radius:50%;
+    background:transparent; cursor:pointer; flex-shrink:0; padding:0;
+  }
+  .nav-toggle span{
+    width:15px; height:1.5px; background:var(--ink);
+    transition:transform .25s ease, opacity .2s ease;
+  }
+  .nav-toggle.open span:nth-child(1){ transform:translateY(6.5px) rotate(45deg); }
+  .nav-toggle.open span:nth-child(2){ opacity:0; }
+  .nav-toggle.open span:nth-child(3){ transform:translateY(-6.5px) rotate(-45deg); }
   .nav-row{
     display:flex; align-items:center; justify-content:flex-end; gap:clamp(20px,3.5vw,40px);
     padding:16px var(--edge);
@@ -588,6 +601,29 @@
     .footer-cols{ grid-template-columns:1fr; }
   }
 
+  /* mobile nav — collapses into a hamburger dropdown */
+  @media (max-width: 700px){
+    .nav-toggle{ display:flex; }
+    nav.links{
+      position:absolute; top:100%; left:0; right:0; z-index:49;
+      background:var(--paper); border-bottom:1px solid var(--paper-line);
+      flex-direction:column; align-items:stretch; gap:0;
+      max-height:0; overflow:hidden;
+      transition:max-height .3s ease;
+    }
+    nav.links.open{ max-height:340px; }
+    nav.links a{
+      width:100%; box-sizing:border-box;
+      padding:15px var(--edge);
+      font-size:13px; letter-spacing:1.2px;
+      border-bottom:1px solid var(--paper-line);
+    }
+    nav.links a::after{ display:none; }
+  }
+  @media (max-width: 400px){
+    .flipbook-frame{ aspect-ratio: 4 / 3.4; }
+  }
+
   /* fade-in on scroll */
   .reveal{ opacity:0; transform:translateY(18px); transition:opacity .7s ease, transform .7s ease; }
   .reveal.in{ opacity:1; transform:none; }
@@ -598,7 +634,7 @@
 
 <header class="site-nav">
   <div class="nav-row">
-    <nav class="links">
+    <nav class="links" id="navLinks">
       <a href="#work">Work</a>
       <a href="#picture-book">Books</a>
       <a href="#personal">Personal</a>
@@ -607,6 +643,9 @@
     </nav>
     <!-- Replace images/avatar.svg with your own icon/photo (jpg/png/svg all work) — it will be cropped into this circle -->
     <a href="#top" class="mark"><img src="images/74.jpg" alt="Lee Chang Zhe"></a>
+    <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </header>
 
@@ -1220,6 +1259,21 @@ Through this magazine, I hope readers can gain a deeper understanding of the ori
       i = (i + 1) % imgs.length;
       imgs[i].classList.add('active');
     }, 2800);
+  })();
+
+  // mobile nav — hamburger toggle
+  (function(){
+    const toggle = document.getElementById('navToggle');
+    const links = document.getElementById('navLinks');
+    if (!toggle || !links) return;
+    function setOpen(open){
+      links.classList.toggle('open', open);
+      toggle.classList.toggle('open', open);
+      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    }
+    toggle.addEventListener('click', () => setOpen(!links.classList.contains('open')));
+    links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setOpen(false)));
+    window.addEventListener('resize', () => { if (window.innerWidth > 700) setOpen(false); });
   })();
 
   // subtle reveal-on-scroll
