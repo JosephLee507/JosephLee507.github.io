@@ -1,0 +1,1238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lee Chang Zhe — 2D Artist Portfolio</title>
+<meta name="description" content="Lee Chang Zhe — 2D Artist. Character design, environment concept art, mascot design & illustration.">
+
+<!--
+  ================================================================
+  HOW TO CUSTOMISE THIS SITE
+  ================================================================
+  1. IMAGES: search for class="carousel" blocks below. Each category
+     (Character Concept, Environment Concept, etc.) can hold as many
+     <img class="slide"> images as you want — just copy a slide line
+     and give it a unique file name. Visitors browse them with the
+     arrow buttons; arrows auto-hide if a category only has 1 image.
+     Replace src="images/....jpg" with your own artwork files placed
+     in the /images folder next to this file.
+  1a. AUTO-FIT SIZING: every frame/carousel now automatically resizes
+     to match each image's real proportions (no cropping, no forced
+     square/portrait box) — this happens automatically via JS, you
+     don't need to do anything for this to work.
+  1b. CLICK TO ENLARGE: every image and video is clickable — it opens
+     a full-screen lightbox with left/right arrows to browse the rest
+     of that same category, plus Escape / swipe-arrow-key support.
+     This is automatic for every .slide and .frame image — no setup
+     needed.
+  1c. ADDING A VIDEO (e.g. a timelapse): a <video> can't just be
+     dropped in as an <img src="...mp4">. Use this block instead,
+     anywhere inside a .carousel (see the Splash Art / Poster
+     Illustration categories for a working example):
+       <div class="slide video-slide">
+         <video muted playsinline preload="metadata" src="images/your-video.mp4"></video>
+         <span class="play-badge"><svg viewBox="0 0 24 24"><path d="M8 5 L19 12 L8 19 Z"/></svg></span>
+       </div>
+     The thumbnail shows a play icon; clicking it opens the video
+     full-screen with real playback controls.
+  1d. HERO SLIDESHOW: if you add a background slideshow to the hero
+     later, give its wrapper id="heroBg" and put multiple <img> tags
+     inside — the script already looks for that id and will animate
+     it automatically.
+  1e. SOCIAL ICONS: search for class="hero-socials" to update your
+     Instagram / X / ArtStation / WhatsApp links.
+  2. FLIPBOOKS (Picture Book / Magazine sections): search for
+     class="flipbook-frame". Replace the iframe's src with your real
+     Heyzine embed link (Heyzine gives you a URL like
+     https://heyzine.com/flip-book/XXXXXXX.html after you upload a PDF).
+  3. TEXT: search for [ ... ] style bracket placeholders (project
+     titles, blurbs, magazine name) and replace with your own copy.
+     To force a line break inside any description/blurb paragraph,
+     add a <br> where you want the break — plain line breaks in the
+     HTML source are ignored by browsers and won't show up on the
+     page. Example:
+       <p class="project-blurb">First line.<br>Second line.</p>
+  4. CONTACT: update the mailto:, tel:/WhatsApp, and href="#"
+     placeholders near the bottom (email, phone, ArtStation etc.)
+  5. HOSTING: this is a single static file. You can host it for free
+     on GitHub Pages, Netlify, or Vercel — just upload this whole
+     folder (index.html + images/).
+  ================================================================
+-->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@400;600;700;800;900&family=Work+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+
+<style>
+  /* Custom title font — place Evogria_Italic.otf inside /images/fonts/ next to this file */
+  @font-face{
+    font-family: "Heavitas";
+    src: url("images/fonts/Heavitas.ttf") format("truetype");
+    font-weight: 400 900;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  :root{
+    --paper: #F1E6CE;
+    --paper-deep: #E4D3A9;
+    --paper-line: #C7AE7C;
+    --ink: #2A2118;
+    --ink-soft: rgba(42,33,24,.62);
+    --ink-faint: rgba(42,33,24,.38);
+    --red: #C22030;
+    --red-deep: #8C1620;
+    --red-tint: rgba(194,32,48,.10);
+
+    --display: "Heavitas", "Big Shoulders Display", sans-serif;
+    --body: "Work Sans", sans-serif;
+
+    --wrap: 1180px;
+    --edge: clamp(24px, 5vw, 72px);
+  }
+
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--body);
+    font-weight:400;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  img{ max-width:100%; display:block; }
+  a{ color:inherit; text-decoration:none; }
+
+  .wrap{ max-width:var(--wrap); margin:0 auto; padding:0 var(--edge); }
+
+  ::selection{ background:var(--red); color:var(--paper); }
+
+  /* ---------- texture ---------- */
+  body::before{
+    content:"";
+    position:fixed; inset:0; z-index:0; pointer-events:none;
+    opacity:.5;
+    background-image:
+      radial-gradient(var(--paper-line) .6px, transparent .6px);
+    background-size: 14px 14px;
+    mix-blend-mode:multiply;
+    opacity:.16;
+  }
+
+  /* ================= NAV ================= */
+  header.site-nav{
+    position:sticky; top:0; z-index:50;
+    background:rgba(241,230,206,.86);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--paper-line);
+  }
+  .nav-row{
+    display:flex; align-items:center; justify-content:flex-end; gap:clamp(20px,3.5vw,40px);
+    padding:16px var(--edge);
+    max-width:var(--wrap); margin:0 auto;
+  }
+  .mark{
+    width:42px; height:42px;
+    border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--display); font-weight:800; font-size:14px;
+    letter-spacing:.5px;
+    flex-shrink:0;
+    overflow:hidden; /* keeps a custom avatar image cropped to the circle */
+  }
+  .mark img{
+    width:100%; height:100%; object-fit:cover;
+  }
+  nav.links{ display:flex; gap:clamp(18px,3vw,36px); }
+  nav.links a{
+    font-size:13px; letter-spacing:1.5px; text-transform:uppercase;
+    font-weight:600; color:var(--ink-soft);
+    position:relative; padding-bottom:3px;
+    transition:color .2s ease;
+  }
+  nav.links a::after{
+    content:""; position:absolute; left:0; right:100%; bottom:0; height:1.5px;
+    background:var(--red); transition:right .25s ease;
+  }
+  nav.links a:hover{ color:var(--ink); }
+  nav.links a:hover::after{ right:0; }
+
+  /* ================= HERO ================= */
+  .hero{
+    position:relative; z-index:1;
+    padding: clamp(56px,10vw,120px) var(--edge) clamp(64px,8vw,96px);
+    overflow:hidden;
+  }
+  .hero-inner{
+    max-width:var(--wrap); margin:0 auto;
+    display:grid; grid-template-columns: 1fr auto; gap:40px;
+    align-items:start;
+  }
+
+  /* rotating background slideshow */
+  .hero-bg{ position:absolute; inset:0; z-index:-1; }
+  .hero-bg img{
+    position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
+    opacity:0; transition:opacity 1.4s ease;
+  }
+  .hero-bg img.active{ opacity:1; }
+  .hero-bg::after{
+    content:"";
+    position:absolute; inset:0;
+    background:linear-gradient(90deg, var(--paper) 0%, rgba(241,230,206,.94) 38%, rgba(241,230,206,.72) 66%, rgba(241,230,206,.55) 100%);
+  }
+  @media (max-width: 860px){
+    .hero-bg::after{ background:rgba(241,230,206,.88); }
+  }
+  .hero-eyebrow{
+    font-size:13px; letter-spacing:3px; text-transform:uppercase;
+    color:var(--red); font-weight:600; margin:0 0 18px;
+    display:flex; align-items:center; gap:10px;
+  }
+  .hero-eyebrow::before{
+    content:""; width:26px; height:1.5px; background:var(--red);
+  }
+  h1.hero-name{
+    font-family:var(--display);
+    font-weight:900;
+    font-size:clamp(3.6rem, 10.5vw, 6.5rem);
+    line-height:1.0;
+    letter-spacing:.5px;
+    margin:0;
+    text-transform:uppercase;
+  }
+  h1.hero-name span{ display:block; }
+  h1.hero-name .accent{ color:var(--red); }
+
+  .hero-sub{
+    max-width:520px;
+    margin:26px 0 0;
+    font-size:clamp(1rem,1.6vw,1.15rem);
+    line-height:1.65;
+    color:var(--ink-soft);
+    font-weight:400;
+  }
+  .hero-cta{
+    margin-top:34px; display:flex; gap:16px; flex-wrap:wrap;
+  }
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    padding:13px 26px;
+    font-size:13px; font-weight:600; letter-spacing:1px; text-transform:uppercase;
+    border-radius:999px;
+    transition:transform .2s ease, box-shadow .2s ease;
+  }
+  .btn-solid{ background:var(--ink); color:var(--paper); }
+  .btn-solid:hover{ transform:translateY(-2px); box-shadow:0 8px 18px rgba(42,33,24,.25); }
+  .btn-outline{ border:1.5px solid var(--ink); color:var(--ink); }
+  .btn-outline:hover{ transform:translateY(-2px); background:var(--ink); color:var(--paper); }
+
+  /* social icon buttons */
+  .hero-socials{
+    display:flex; flex-direction:column; gap:16px;
+    padding-top:6px;
+  }
+  .social-btn{
+    width:52px; height:52px; border-radius:50%;
+    border:1.5px solid var(--ink);
+    display:flex; align-items:center; justify-content:center;
+    transition:background .2s ease, border-color .2s ease, transform .2s ease;
+    flex-shrink:0;
+  }
+  .social-btn svg{ width:20px; height:20px; }
+  .social-btn path, .social-btn circle, .social-btn rect{
+    stroke:var(--ink); transition:stroke .2s ease, fill .2s ease;
+  }
+  .social-btn:hover{
+    background:var(--red); border-color:var(--red);
+    transform:translateY(-3px);
+  }
+  .social-btn:hover path, .social-btn:hover circle, .social-btn:hover rect{
+    stroke:var(--paper);
+  }
+  .social-btn:hover .rn-fill{ fill:var(--paper); }
+  @media (max-width: 860px){
+    .hero-socials{ flex-direction:row; }
+  }
+
+  /* ================= SECTION LABELS ================= */
+  .section-head{
+    display:flex; align-items:baseline; gap:18px;
+    margin:0 0 46px;
+  }
+  .section-head .num{
+    font-family:var(--display); font-weight:800; font-size:15px;
+    color:var(--red); letter-spacing:1px;
+  }
+  .section-head h2{
+    font-family:var(--display); font-weight:800;
+    text-transform:uppercase; letter-spacing:1px;
+    font-size:clamp(1.6rem,3vw,1.7rem);
+    margin:0;
+  }
+  .section-head .rule{
+    flex:1; height:1px; background:var(--paper-line);
+    transform:translateY(-4px);
+  }
+
+  section{ position:relative; z-index:1; padding:88px 0; }
+  section.divider-top{ border-top:1px solid var(--paper-line); }
+
+  /* ================= WORK ================= */
+  .project{ padding:70px 0; }
+  .project + .project{ border-top:1px solid var(--paper-line); }
+
+  .project-head{
+    display:flex; justify-content:space-between; align-items:flex-end;
+    gap:24px; flex-wrap:wrap; margin-bottom:34px;
+  }
+  .project-title{
+    font-family:var(--display); font-weight:900; text-transform:uppercase;
+    font-size:clamp(2.2rem,6vw,3.5rem); line-height:.92; margin:0;
+  }
+  .project-meta{ text-align:right; }
+  .project-tag{
+    display:inline-block; padding:6px 14px; border:1.5px solid var(--red);
+    color:var(--red); border-radius:999px;
+    font-size:11px; letter-spacing:1.5px; text-transform:uppercase; font-weight:700;
+    margin-bottom:8px;
+  }
+  .project-roles{
+    font-size:13px; color:var(--ink-soft); letter-spacing:.3px;
+  }
+  .project-blurb{
+    max-width:640px; color:var(--ink-soft); line-height:1.7;
+    font-size:1rem; margin:0 0 40px;
+  }
+
+  /* category carousel grid */
+  .cat-grid{
+    display:grid; grid-template-columns: 1fr 1fr; gap:24px 22px;
+  }
+  .cat-block{}
+  .cat-block.wide{ grid-column: 1 / -1; }
+  .carousel{
+    position:relative;
+    background:
+      repeating-linear-gradient(135deg, var(--paper-deep), var(--paper-deep) 10px, #e9dab4 10px, #e9dab4 20px);
+    border:1px solid var(--paper-line);
+    overflow:hidden;
+    aspect-ratio: 4/3; /* fallback until the real image loads and sets its own ratio */
+    transition: aspect-ratio .35s ease;
+  }
+  .carousel .slide{
+    position:absolute; inset:0; width:100%; height:100%; object-fit:contain;
+    opacity:0; transition:opacity .45s ease;
+    pointer-events:none; cursor:zoom-in;
+    background:transparent;
+  }
+  .carousel .slide.active{ opacity:1; pointer-events:auto; }
+  .carousel .slide.video-slide{ background:#000; }
+  .carousel .slide.video-slide video{
+    width:100%; height:100%; object-fit:contain; display:block;
+  }
+  .play-badge{
+    position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+    width:54px; height:54px; border-radius:50%;
+    background:rgba(42,33,24,.72); color:var(--paper);
+    display:flex; align-items:center; justify-content:center;
+    pointer-events:none; z-index:1;
+    border:1.5px solid rgba(241,230,206,.7);
+  }
+  .play-badge svg{ width:18px; height:18px; margin-left:2px; }
+  .play-badge path{ fill:var(--paper); }
+  .carousel .label{
+    position:absolute; left:0; right:0; bottom:0; z-index:2;
+    background:rgba(241,230,206,.92);
+    border-top:1px solid var(--paper-line);
+    padding:9px 12px;
+    font-size:10.5px; letter-spacing:.8px; text-transform:uppercase;
+    color:var(--ink-soft); font-weight:600;
+    display:flex; justify-content:space-between; gap:8px;
+    pointer-events:none;
+  }
+  .carousel .label b{ color:var(--ink); font-weight:700; }
+
+  .car-arrow{
+    position:absolute; top:50%; transform:translateY(-50%);
+    z-index:3;
+    width:38px; height:38px; border-radius:50%;
+    border:1.5px solid var(--ink);
+    background:rgba(241,230,206,.82);
+    backdrop-filter:blur(2px);
+    display:flex; align-items:center; justify-content:center;
+    transition:background .2s ease, border-color .2s ease, transform .2s ease;
+  }
+  .car-arrow svg{ width:15px; height:15px; }
+  .car-arrow path{ stroke:var(--ink); transition:stroke .2s ease; }
+  .car-arrow:hover{ background:var(--red); border-color:var(--red); }
+  .car-arrow:hover path{ stroke:var(--paper); }
+  .car-arrow.prev{ left:12px; }
+  .car-arrow.next{ right:12px; }
+  .car-arrow[hidden]{ display:none; }
+
+  .frame{
+    position:relative;
+    background:
+      repeating-linear-gradient(135deg, var(--paper-deep), var(--paper-deep) 10px, #e9dab4 10px, #e9dab4 20px);
+    border:1px solid var(--paper-line);
+    overflow:hidden;
+    aspect-ratio: 4/5; /* fallback until the real image loads and sets its own ratio */
+    transition: aspect-ratio .35s ease;
+  }
+  .frame img{ width:100%; height:100%; object-fit:contain; cursor:zoom-in; }
+  .frame .label{
+    position:absolute; left:0; right:0; bottom:0;
+    background:rgba(241,230,206,.92);
+    border-top:1px solid var(--paper-line);
+    padding:9px 12px;
+    font-size:10.5px; letter-spacing:.8px; text-transform:uppercase;
+    color:var(--ink-soft); font-weight:600;
+    display:flex; justify-content:space-between; gap:8px;
+    pointer-events:none;
+  }
+  .frame .label b{ color:var(--ink); font-weight:700; }
+
+  /* flipbook embed (Heyzine or similar) */
+  .flipbook-frame{
+    position:relative; width:100%;
+    aspect-ratio: 3 / 2;
+    border:1px solid var(--paper-line);
+    background:var(--paper-deep);
+    overflow:hidden;
+  }
+  .flipbook-frame iframe{
+    position:absolute; inset:0; width:100%; height:100%; border:0;
+  }
+  .flipbook-caption{
+    margin:10px 0 0; font-size:12px; letter-spacing:.5px;
+    color:var(--ink-faint); text-transform:uppercase; font-weight:600;
+  }
+
+  /* ================= LIGHTBOX ================= */
+  .lightbox{
+    position:fixed; inset:0; z-index:100;
+    background:rgba(26,20,14,.94);
+    display:flex; align-items:center; justify-content:center;
+    opacity:0; visibility:hidden;
+    transition:opacity .25s ease, visibility 0s linear .25s;
+  }
+  .lightbox.open{ opacity:1; visibility:visible; transition:opacity .25s ease; }
+  .lb-stage{
+    max-width:88vw; max-height:82vh;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .lb-stage img, .lb-stage video{
+    max-width:88vw; max-height:82vh; width:auto; height:auto;
+    object-fit:contain; box-shadow:0 20px 60px rgba(0,0,0,.4);
+  }
+  .lb-close{
+    position:absolute; top:22px; right:22px; z-index:2;
+    width:44px; height:44px; border-radius:50%;
+    border:1.5px solid rgba(241,230,206,.5);
+    background:rgba(241,230,206,.08);
+    display:flex; align-items:center; justify-content:center;
+    color:var(--paper); cursor:pointer;
+    transition:background .2s ease, border-color .2s ease;
+  }
+  .lb-close:hover{ background:rgba(241,230,206,.18); border-color:var(--paper); }
+  .lb-close svg{ width:18px; height:18px; }
+  .lb-close path{ stroke:var(--paper); }
+
+  .lb-arrow{
+    position:absolute; top:50%; transform:translateY(-50%);
+    z-index:2; width:52px; height:52px; border-radius:50%;
+    border:1.5px solid rgba(241,230,206,.5);
+    background:rgba(241,230,206,.08);
+    display:flex; align-items:center; justify-content:center;
+    cursor:pointer;
+    transition:background .2s ease, border-color .2s ease;
+  }
+  .lb-arrow svg{ width:20px; height:20px; }
+  .lb-arrow path{ stroke:var(--paper); }
+  .lb-arrow:hover{ background:rgba(241,230,206,.18); border-color:var(--paper); }
+  .lb-prev{ left:20px; }
+  .lb-next{ right:20px; }
+  .lb-arrow[hidden]{ display:none; }
+
+  .lb-counter{
+    position:absolute; bottom:22px; left:50%; transform:translateX(-50%);
+    color:rgba(241,230,206,.75); font-size:12.5px; letter-spacing:1.5px;
+    text-transform:uppercase; font-family:var(--body); font-weight:600;
+  }
+  @media (max-width:640px){
+    .lb-arrow{ width:42px; height:42px; }
+    .lb-close{ width:38px; height:38px; top:14px; right:14px; }
+    .lb-prev{ left:10px; } .lb-next{ right:10px; }
+  }
+
+  /* ================= ABOUT ================= */
+  .about-grid{
+    display:grid; grid-template-columns: 1fr 1.4fr; gap:56px; align-items:start;
+  }
+  .about-portrait .frame{ aspect-ratio: 3/4; }
+  .about-quote{
+    font-family:var(--display); font-weight:700;
+    font-size:clamp(1.5rem,2.6vw,2.15rem);
+    line-height:1.28;
+    margin:0 0 26px;
+  }
+  .about-quote .mark-open{ color:var(--red); }
+  .about-body p{
+    color:var(--ink-soft); line-height:1.75; font-size:1rem;
+    max-width:560px;
+  }
+  .about-facts{
+    display:grid; grid-template-columns:1fr 1fr; gap:18px 28px;
+    margin-top:32px; max-width:560px;
+  }
+  .about-facts div{ border-top:1px solid var(--paper-line); padding-top:10px; }
+  .about-facts .k{ font-size:11px; letter-spacing:1.2px; text-transform:uppercase; color:var(--ink-faint); font-weight:700; }
+  .about-facts .v{ font-size:14.5px; margin-top:4px; font-weight:500; }
+
+  /* ================= TOOLS ================= */
+  .tools-row{
+    display:flex; flex-wrap:wrap; align-items:center; justify-content:center;
+    gap:14px 0;
+    font-family:var(--display); font-weight:700; text-transform:uppercase;
+    font-size:clamp(1.1rem,2.4vw,1.7rem);
+    letter-spacing:.5px;
+    text-align:center;
+    color:var(--ink-soft);
+  }
+  .tools-row .dot{ color:var(--red); margin:0 20px; font-weight:400; }
+  .lang-row{
+    margin-top:26px; text-align:center;
+    font-size:13px; letter-spacing:1px; text-transform:uppercase;
+    color:var(--ink-faint); font-weight:600;
+  }
+  .lang-row b{ color:var(--ink-soft); }
+
+  /* ================= FOOTER / CONTACT ================= */
+  footer{
+    background:var(--red);
+    color:var(--paper);
+    padding: clamp(64px,10vw,120px) var(--edge) 40px;
+    position:relative; z-index:1;
+  }
+  .footer-inner{ max-width:var(--wrap); margin:0 auto; }
+  footer .eyebrow{
+    font-size:13px; letter-spacing:3px; text-transform:uppercase;
+    color:rgba(241,230,206,.75); font-weight:600; margin:0 0 18px;
+  }
+  footer h2{
+    font-family:var(--display); font-weight:900; text-transform:uppercase;
+    font-size:clamp(2.4rem,7vw,5.2rem); line-height:.92; margin:0 0 34px;
+  }
+  .footer-label{
+    display:block;
+    font-size:12px; letter-spacing:1.5px; text-transform:uppercase;
+    color:rgba(241,230,206,.6); font-weight:700;
+    margin-bottom:8px;
+  }
+  .footer-email{
+    display:inline-block; font-family:var(--display); font-weight:700;
+    font-size:clamp(1.3rem,3.6vw,1.7rem);
+    border-bottom:2px solid var(--paper);
+    padding-bottom:6px; margin-bottom:14px;
+    transition:opacity .2s ease;
+  }
+  .footer-email:hover{ opacity:.72; }
+  .footer-phone{
+    display:block;
+    font-family:var(--body); font-weight:500;
+    font-size:1rem; letter-spacing:.4px;
+    color:rgba(241,230,206,.82);
+    margin-bottom:48px;
+    transition:opacity .2s ease;
+  }
+  .footer-phone:hover{ opacity:.72; }
+
+  .footer-cols{
+    display:grid; grid-template-columns: repeat(3,1fr); gap:24px;
+    border-top:1px solid rgba(241,230,206,.3);
+    padding-top:28px;
+  }
+  .footer-cols .k{
+    font-size:12px; letter-spacing:1.5px; text-transform:uppercase;
+    color:rgba(241,230,206,.6); font-weight:700; margin-bottom:10px;
+  }
+  .footer-cols a, .footer-cols span{
+    display:block; font-size:15px; margin-bottom:6px; color:var(--paper);
+  }
+  .footer-cols a{ opacity:.9; }
+  .footer-cols a:hover{ text-decoration:underline; }
+  .footer-bottom{
+    margin-top:48px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;
+    font-size:12px; color:rgba(241,230,206,.55); letter-spacing:.5px;
+  }
+
+  /* ================= responsive ================= */
+  @media (max-width: 860px){
+    .hero-inner{ grid-template-columns:1fr; }
+    .hero-socials{ order:-1; margin-bottom:8px; }
+    .cat-grid{ grid-template-columns:1fr; }
+    .about-grid{ grid-template-columns:1fr; }
+    .about-facts{ grid-template-columns:1fr 1fr; }
+    .footer-cols{ grid-template-columns:1fr 1fr; }
+    nav.links{ gap:14px; }
+    nav.links a{ font-size:11px; }
+  }
+  @media (max-width: 520px){
+    .project-head{ flex-direction:column; align-items:flex-start; }
+    .project-meta{ text-align:left; }
+    .footer-cols{ grid-template-columns:1fr; }
+  }
+
+  /* fade-in on scroll */
+  .reveal{ opacity:0; transform:translateY(18px); transition:opacity .7s ease, transform .7s ease; }
+  .reveal.in{ opacity:1; transform:none; }
+  @media (prefers-reduced-motion:reduce){ .reveal{ opacity:1; transform:none; } }
+</style>
+</head>
+<body>
+
+<header class="site-nav">
+  <div class="nav-row">
+    <nav class="links">
+      <a href="#work">Work</a>
+      <a href="#picture-book">Books</a>
+      <a href="#personal">Personal</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <!-- Replace images/avatar.svg with your own icon/photo (jpg/png/svg all work) — it will be cropped into this circle -->
+    <a href="#top" class="mark"><img src="images/74.jpg" alt="Lee Chang Zhe"></a>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- ================= HERO ================= -->
+  <section class="hero">
+
+    <div class="hero-inner">
+      <div>
+        <p class="hero-eyebrow">2D Artist — Concept Designer</p>
+        <h1 class="hero-name">
+          <span>Chang Zhe</span>
+          <span class="accent">Lee</span>
+        </h1>
+        <p class="hero-sub">
+          I’m a 2D Concept Artist specializing in Character Design, 
+	  Cover Art, Concept Art, and Splash Art. 
+	  I focus on creating expressive characters through strong visual storytelling, dynamic compositions, 
+	  and rich colorexploration.
+        </p>
+        <div class="hero-cta">
+          <a class="btn btn-solid" href="#work">View Work</a>
+          <a class="btn btn-outline" href="mailto:changzhe0507@gmail.com">Get in Touch</a>
+        </div>
+      </div>
+
+      <!-- social links — replace href="#" with your real profile URLs -->
+      <div class="hero-socials">
+        <a class="social-btn" href="https://www.instagram.com/_zeroxuan_/" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.2" cy="6.8" r="1" fill="var(--ink)" stroke="none"/></svg>
+        </a>
+        <a class="social-btn" href="https://x.com/_ZeroXuan_" target="_blank" rel="noopener" aria-label="X (Twitter)">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><path d="M4 4 L20 20 M20 4 L4 20"/></svg>
+        </a>
+        <a class="social-btn" href="https://www.artstation.com/zeroxuan" target="_blank" rel="noopener" aria-label="ArtStation">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><path d="M4 15.5 H14.5 L17 20"/><path d="M9.5 4 L18.5 20 M9.5 4 H14.2"/><path d="M15.3 12 L18.6 12" /></svg>
+        </a>
+	<a class="social-btn" href="https://wa.me/60187710357" target="_blank" rel="noopener" aria-label="WhatsApp">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><path d="M6.4 17.6 L5 20 L7.5 18.7 A7.5 7.5 0 1 0 4.5 12 A7.4 7.4 0 0 0 6.4 17.6 Z"/><path d="M9.2 9.6 c-.2 -.5 -.4 -.5 -.6 -.5 h-.5 c-.2 0 -.5 .1 -.7 .4 -.2 .3 -.9 .8 -.9 2 s.9 2.4 1.1 2.5 c.1 .2 1.8 2.9 4.5 3.9 2.2 .8 2.7 .7 3.1 .6 .5 -.1 1.5 -.6 1.7 -1.2 .2 -.6 .2 -1.1 .2 -1.2 -.1 -.1 -.2 -.2 -.5 -.3 -.2 -.1 -1.5 -.7 -1.7 -.8 -.2 -.1 -.4 -.1 -.6 .1 -.2 .3 -.6 .8 -.8 1 -.1 .2 -.3 .2 -.5 .1 -.3 -.1 -1.1 -.4 -2.1 -1.3 -.8 -.7 -1.3 -1.5 -1.5 -1.8 -.1 -.3 0 -.4 .1 -.5 .2 -.2 .3 -.4 .4 -.5 .1 -.2 .2 -.3 .2 -.5 .1 -.2 0 -.4 0 -.5 -.1 -.1 -.5 -1.3 -.7 -1.7 Z"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= WORK ================= -->
+  <section id="work" class="divider-top">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="num">01</span>
+        <h2>Selected Work</h2>
+        <span class="rule"></span>
+      </div>
+
+      <!-- PROJECT 1 -->
+      <article class="project reveal">
+        <div class="project-head">
+          <h3 class="project-title">The Giant's<br>Servant</h3>
+          <div class="project-meta">
+            <span class="project-tag">Fictional IP</span>
+            <div class="project-roles">Character · Environment · Key Art · Poster · Story Board</div>
+          </div>
+        </div>
+        <p class="project-blurb">
+          In a world ruled by demi-gods, humanity lives confined within a massive circular city,
+	  its history erased.<br><br>
+	  The inner rings belong to demi-gods, while humans suffer under cruel rule
+	  in the outer rings.Lyra, the weakest heir of the Ashcroft family, survives an assassination attempt and
+	  uncovers a forbidden truth about giants.<br><br>Recruited by the secretive Giants' Servant, she embarks on a journey to uncover the lost past and ultimately decides to dismantle the demi-gods' rule.
+        </p>
+
+        <div class="cat-grid">
+          <div class="cat-block">
+            <div class="carousel">
+              <img class="slide active" src="images/6.jpg" alt="The Giant's Servant — character concept 1, replace with your artwork">
+              <img class="slide" src="images/7.jpg" alt="The Giant's Servant — character concept 2, replace with your artwork">
+              <img class="slide" src="images/8.jpg" alt="The Giant's Servant — character concept 3, replace with your artwork">
+              <img class="slide" src="images/9.jpg" alt="The Giant's Servant — character concept 4, replace with your artwork">
+              <img class="slide" src="images/10.jpg" alt="The Giant's Servant — character concept 5, replace with your artwork">
+              <img class="slide" src="images/11.jpg" alt="The Giant's Servant — character concept 6, replace with your artwork">
+              <img class="slide" src="images/12.jpg" alt="The Giant's Servant — character concept 7, replace with your artwork">
+              <img class="slide" src="images/13.jpg" alt="The Giant's Servant — character concept 8, replace with your artwork">
+              <img class="slide" src="images/14.jpg" alt="The Giant's Servant — character concept 9, replace with your artwork">
+              <img class="slide" src="images/15.jpg" alt="The Giant's Servant — character concept 10, replace with your artwork">
+              <img class="slide" src="images/16.jpg" alt="The Giant's Servant — character concept 11, replace with your artwork">
+              <img class="slide" src="images/17.jpg" alt="The Giant's Servant — character concept 12, replace with your artwork">
+              <button class="car-arrow prev" aria-label="Previous image"><svg viewBox="0 0 24 24" fill="none"><path d="M15 5 L8 12 L15 19" stroke-width="2"/></svg></button>
+              <button class="car-arrow next" aria-label="Next image"><svg viewBox="0 0 24 24" fill="none"><path d="M9 5 L16 12 L9 19" stroke-width="2"/></svg></button>
+              <div class="label"><b>Character Concept</b><span class="counter"></span></div>
+            </div>
+          </div>
+
+          <div class="cat-block">
+            <div class="carousel">
+              <img class="slide active" src="images/18.jpg" alt="The Giant's Servant — environment concept 1, replace with your artwork">
+              <img class="slide" src="images/19.jpg" alt="The Giant's Servant — environment concept 2, replace with your artwork">
+              <img class="slide" src="images/20.jpg" alt="The Giant's Servant — environment concept 3, replace with your artwork">
+              <img class="slide" src="images/21.jpg" alt="The Giant's Servant — environment concept 4, replace with your artwork">
+              <img class="slide" src="images/22.jpg" alt="The Giant's Servant — environment concept 5, replace with your artwork">
+              <img class="slide" src="images/23.jpg" alt="The Giant's Servant — environment concept 6, replace with your artwork">
+              <img class="slide" src="images/24.jpg" alt="The Giant's Servant — environment concept 7, replace with your artwork">
+              <img class="slide" src="images/25.jpg" alt="The Giant's Servant — environment concept 8, replace with your artwork">
+              <img class="slide" src="images/26.jpg" alt="The Giant's Servant — environment concept 9, replace with your artwork">
+              <img class="slide" src="images/27.jpg" alt="The Giant's Servant — environment concept 10, replace with your artwork">
+              <img class="slide" src="images/28.jpg" alt="The Giant's Servant — environment concept 11, replace with your artwork">
+              <img class="slide" src="images/29.jpg" alt="The Giant's Servant — environment concept 12, replace with your artwork">
+              <img class="slide" src="images/30.jpg" alt="The Giant's Servant — environment concept 13, replace with your artwork">
+              <img class="slide" src="images/31.jpg" alt="The Giant's Servant — environment concept 14, replace with your artwork">
+              <button class="car-arrow prev" aria-label="Previous image"><svg viewBox="0 0 24 24" fill="none"><path d="M15 5 L8 12 L15 19" stroke-width="2"/></svg></button>
+              <button class="car-arrow next" aria-label="Next image"><svg viewBox="0 0 24 24" fill="none"><path d="M9 5 L16 12 L9 19" stroke-width="2"/></svg></button>
+              <div class="label"><b>Environment Concept</b><span class="counter"></span></div>
+            </div>
+          </div>
+
+          <div class="cat-block">
+            <div class="carousel">
+              <img class="slide active" src="images/1.jpg" alt="The Giant's Servant — splash art 1, replace with your artwork">
+              <div class="slide video-slide">
+                <video muted playsinline preload="metadata" src="images/SplashArt_Timelapse.mp4"></video>
+                <span class="play-badge"><svg viewBox="0 0 24 24"><path d="M8 5 L19 12 L8 19 Z"/></svg></span>
+              </div>
+              <button class="car-arrow prev" aria-label="Previous image"><svg viewBox="0 0 24 24" fill="none"><path d="M15 5 L8 12 L15 19" stroke-width="2"/></svg></button>
+              <button class="car-arrow next" aria-label="Next image"><svg viewBox="0 0 24 24" fill="none"><path d="M9 5 L16 12 L9 19" stroke-width="2"/></svg></button>
+              <div class="label"><b>Splash Art</b><span class="counter"></span></div>
+            </div>
+          </div>
+
+          <div class="cat-block">
+            <div class="carousel">
+              <img class="slide active" src="images/3.jpg" alt="The Giant's Servant — poster illustration 1, replace with your artwork">
+              <img class="slide" src="images/32.jpg" alt="The Giant's Servant — poster illustration 2, replace with your artwork">
+              <img class="slide" src="images/33.jpg" alt="The Giant's Servant — poster illustration 3, replace with your artwork">
+              <div class="slide video-slide">
+                <video muted playsinline preload="metadata" src="images/Poster_Timelapse.mp4"></video>
+                <span class="play-badge"><svg viewBox="0 0 24 24"><path d="M8 5 L19 12 L8 19 Z"/></svg></span>
+              </div>
+              <button class="car-arrow prev" aria-label="Previous image"><svg viewBox="0 0 24 24" fill="none"><path d="M15 5 L8 12 L15 19" stroke-width="2"/></svg></button>
+              <button class="car-arrow next" aria-label="Next image"><svg viewBox="0 0 24 24" fill="none"><path d="M9 5 L16 12 L9 19" stroke-width="2"/></svg></button>
+              <div class="label"><b>Poster Illustration</b><span class="counter"></span></div>
+            </div>
+          </div>
+
+          <div class="cat-block wide">
+            <div class="carousel">
+              <div class="slide video-slide">
+	       <video muted playsinline preload="metadata" src="images/StoryBoard.mp4"></video>
+ 	        <span class="play-badge">▶</span>
+		</div>
+              <img class="slide" src="images/41.jpg" alt="The Giant's Servant — story board 3, replace with your artwork">
+              <img class="slide" src="images/42.jpg" alt="The Giant's Servant — story board 4, replace with your artwork">
+              <img class="slide" src="images/43.jpg" alt="The Giant's Servant — story board 5, replace with your artwork">
+              <img class="slide" src="images/44.jpg" alt="The Giant's Servant — story board 6, replace with your artwork">
+              <img class="slide" src="images/45.jpg" alt="The Giant's Servant — story board 7, replace with your artwork">
+              <img class="slide" src="images/46.jpg" alt="The Giant's Servant — story board 8, replace with your artwork">
+              <img class="slide" src="images/47.jpg" alt="The Giant's Servant — story board 9, replace with your artwork">
+              <img class="slide" src="images/48.jpg" alt="The Giant's Servant — story board 10, replace with your artwork">
+              <img class="slide" src="images/49.jpg" alt="The Giant's Servant — story board 11, replace with your artwork">
+              <img class="slide" src="images/50.jpg" alt="The Giant's Servant — story board 12, replace with your artwork">
+              <img class="slide" src="images/51.jpg" alt="The Giant's Servant — story board 13, replace with your artwork">
+              <img class="slide" src="images/52.jpg" alt="The Giant's Servant — story board 14, replace with your artwork">
+              <img class="slide" src="images/53.jpg" alt="The Giant's Servant — story board 15, replace with your artwork">
+              <img class="slide" src="images/54.jpg" alt="The Giant's Servant — story board 16, replace with your artwork">
+              <img class="slide" src="images/55.jpg" alt="The Giant's Servant — story board 17, replace with your artwork">
+              <img class="slide" src="images/56.jpg" alt="The Giant's Servant — story board 18, replace with your artwork">
+              <img class="slide" src="images/57.jpg" alt="The Giant's Servant — story board 19, replace with your artwork">
+              <img class="slide" src="images/58.jpg" alt="The Giant's Servant — story board 20, replace with your artwork">
+              <img class="slide" src="images/59.jpg" alt="The Giant's Servant — story board 21, replace with your artwork">
+              <img class="slide" src="images/60.jpg" alt="The Giant's Servant — story board 22, replace with your artwork">
+              <img class="slide" src="images/61.jpg" alt="The Giant's Servant — story board 23, replace with your artwork">
+              <img class="slide" src="images/62.jpg" alt="The Giant's Servant — story board 24, replace with your artwork">
+              <img class="slide" src="images/63.jpg" alt="The Giant's Servant — story board 25, replace with your artwork">
+              <img class="slide" src="images/64.jpg" alt="The Giant's Servant — story board 26, replace with your artwork">
+              <img class="slide" src="images/65.jpg" alt="The Giant's Servant — story board 27, replace with your artwork">
+              <button class="car-arrow prev" aria-label="Previous image"><svg viewBox="0 0 24 24" fill="none"><path d="M15 5 L8 12 L15 19" stroke-width="2"/></svg></button>
+              <button class="car-arrow next" aria-label="Next image"><svg viewBox="0 0 24 24" fill="none"><path d="M9 5 L16 12 L9 19" stroke-width="2"/></svg></button>
+              <div class="label"><b>Story Board</b><span class="counter"></span></div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- PROJECT 2 -->
+      <article class="project reveal">
+        <div class="project-head">
+          <h3 class="project-title">Penguway</h3>
+          <div class="project-meta">
+            <span class="project-tag">Personal IP</span>
+            <div class="project-roles">Mascot · Illustration · Stickers · Layout</div>
+          </div>
+        </div>
+        <p class="project-blurb">
+          Penguway tells the story of a little penguin named Pengu, who loves adventure. <br>One day, he discovers a dusty magic book hidden in a corner of his attic. Driven by curiosity, he opens it, only for a snowball-like magical creature to suddenly burst out. The creature introduces itself as “Glint,” a guide.<br><br> With Glint leading the way, Pengu embarks on a series of exciting adventures. Along the journey, he also meets many new friends and experiences unforgettable moments.
+        </p>
+
+        <div class="cat-grid">
+          <div class="cat-block">
+            <div class="carousel">
+              <img class="slide active" src="images/37.jpg" alt="Penguway — mascot design 1, replace with your artwork">
+              <button class="car-arrow prev" aria-label="Previous image"><svg viewBox="0 0 24 24" fill="none"><path d="M15 5 L8 12 L15 19" stroke-width="2"/></svg></button>
+              <button class="car-arrow next" aria-label="Next image"><svg viewBox="0 0 24 24" fill="none"><path d="M9 5 L16 12 L9 19" stroke-width="2"/></svg></button>
+              <div class="label"><b>Mascot Design</b><span class="counter"></span></div>
+            </div>
+          </div>
+
+          <div class="cat-block">
+            <div class="carousel">
+              <img class="slide active" src="images/34.jpg" alt="Penguway — illustration 1, replace with your artwork">
+              <img class="slide" src="images/35.jpg" alt="Penguway — illustration 2, replace with your artwork">
+              <img class="slide" src="images/39.jpg" alt="Penguway — illustration 3, replace with your artwork">
+              <button class="car-arrow prev" aria-label="Previous image"><svg viewBox="0 0 24 24" fill="none"><path d="M15 5 L8 12 L15 19" stroke-width="2"/></svg></button>
+              <button class="car-arrow next" aria-label="Next image"><svg viewBox="0 0 24 24" fill="none"><path d="M9 5 L16 12 L9 19" stroke-width="2"/></svg></button>
+              <div class="label"><b>Illustration</b><span class="counter"></span></div>
+            </div>
+          </div>
+
+          <div class="cat-block">
+            <div class="carousel">
+              <img class="slide active" src="images/38.jpg" alt="Penguway — sticker set 1, replace with your artwork">
+              <button class="car-arrow prev" aria-label="Previous image"><svg viewBox="0 0 24 24" fill="none"><path d="M15 5 L8 12 L15 19" stroke-width="2"/></svg></button>
+              <button class="car-arrow next" aria-label="Next image"><svg viewBox="0 0 24 24" fill="none"><path d="M9 5 L16 12 L9 19" stroke-width="2"/></svg></button>
+              <div class="label"><b>Sticker Set</b><span class="counter"></span></div>
+            </div>
+          </div>
+
+          <div class="cat-block">
+            <div class="carousel">
+              <img class="slide active" src="images/36.jpg" alt="Penguway — layout design 1, replace with your artwork">
+              <button class="car-arrow prev" aria-label="Previous image"><svg viewBox="0 0 24 24" fill="none"><path d="M15 5 L8 12 L15 19" stroke-width="2"/></svg></button>
+              <button class="car-arrow next" aria-label="Next image"><svg viewBox="0 0 24 24" fill="none"><path d="M9 5 L16 12 L9 19" stroke-width="2"/></svg></button>
+              <div class="label"><b>Layout</b><span class="counter"></span></div>
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ================= PICTURE BOOK ================= -->
+  <section id="picture-book" class="divider-top">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="num">02</span>
+        <h2>Picture Book</h2>
+        <span class="rule"></span>
+      </div>
+
+      <article class="project reveal">
+        <div class="project-head">
+          <h3 class="project-title">Dear Me</h3>
+          <div class="project-meta">
+            <span class="project-tag">Picture Book</span>
+            <div class="project-roles">Storytelling · Character Design · Illustration</div>
+          </div>
+        </div>
+        <p class="project-blurb">
+          “Dear Me” is a picture book aimed at middle school students. <br><br>The story follows a protagonist who, after experiencing bullying at school, falls into depression and gradually distances herself from everyone around her.<br><br>
+
+However, through a dream, she encounters her younger self—lively, cheerful, and full of energy. This younger version of her guides her through a series of emotional and symbolic dangers. Along the way, the protagonist begins to recall fragments of her life and realizes that no matter how much she has changed, her mother has always loved and cared for her unconditionally.<br><br>
+
+In the end, she reconciles with herself and completes a journey of self-healing. The story conveys that, no matter how difficult things may seem, there are always people who love and care about you—you may simply not have noticed. Therefore, no matter what happens, you should never give up on yourself.
+        </p>
+
+        <!-- Flipbook: replace the src below with your own Heyzine flip-book embed link
+             (Heyzine gives you an embed URL like https://heyzine.com/flip-book/XXXXXXX.html) -->
+        <div class="flipbook-frame">
+          <iframe
+            src="https://heyzine.com/flip-book/a052485712.html"
+            title="Dear Me — flipbook preview"
+            allow="clipboard-write"
+            loading="lazy"></iframe>
+        </div>
+        <p class="flipbook-caption">Dear Me, by Lee Chang Zhe</p>
+
+        <div class="cat-grid" style="margin-top:32px;">
+          <div class="cat-block">
+            <div class="carousel">
+              <img class="slide active" src="images/66.jpg" alt="Dear Me — thumbnail 1, replace with your artwork">
+              <button class="car-arrow prev" aria-label="Previous image"><svg viewBox="0 0 24 24" fill="none"><path d="M15 5 L8 12 L15 19" stroke-width="2"/></svg></button>
+              <button class="car-arrow next" aria-label="Next image"><svg viewBox="0 0 24 24" fill="none"><path d="M9 5 L16 12 L9 19" stroke-width="2"/></svg></button>
+              <div class="label"><b>Thumbnail</b><span class="counter"></span></div>
+            </div>
+          </div>
+
+          <div class="cat-block">
+            <div class="carousel">
+              <img class="slide active" src="images/67.jpg" alt="Dear Me — character design 1, replace with your artwork">
+              <img class="slide" src="images/68.jpg" alt="Dear Me — character design 2, replace with your artwork">
+              <img class="slide" src="images/69.jpg" alt="Dear Me — character design 3, replace with your artwork">
+              <button class="car-arrow prev" aria-label="Previous image"><svg viewBox="0 0 24 24" fill="none"><path d="M15 5 L8 12 L15 19" stroke-width="2"/></svg></button>
+              <button class="car-arrow next" aria-label="Next image"><svg viewBox="0 0 24 24" fill="none"><path d="M9 5 L16 12 L9 19" stroke-width="2"/></svg></button>
+              <div class="label"><b>Character Design</b><span class="counter"></span></div>
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ================= MAGAZINE ================= -->
+  <section id="magazine" class="divider-top">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="num">03</span>
+        <h2>Magazine</h2>
+        <span class="rule"></span>
+      </div>
+
+      <article class="project reveal">
+        <div class="project-head">
+          <h3 class="project-title">FLUX</h3>
+          <div class="project-meta">
+            <span class="project-tag">Magazine</span>
+            <div class="project-roles">Typography · Layout</div>
+          </div>
+        </div>
+        <p class="project-blurb">
+          Flux represents constant change, continuous evolution, and endless renewal.<br><br> This magazine explores the history of fashion, showcasing how different eras have developed their own interpretations of beauty and style.<br><br>
+
+Through this magazine, I hope readers can gain a deeper understanding of the origins of fashion, tracing its journey from its earliest beginnings to its transformation into the modern world. It reveals how fashion has continuously evolved alongside society, culture, and the changing perceptions of beauty throughout history.
+        </p>
+
+        <!-- Flipbook: replace the src below with your own Heyzine flip-book embed link -->
+        <div class="flipbook-frame">
+          <iframe
+            src="https://heyzine.com/flip-book/6acb31899f.html"
+            title="Magazine — flipbook preview"
+            allow="clipboard-write"
+            loading="lazy"></iframe>
+        </div>
+        <p class="flipbook-caption">FLUX, by Lee Chang Zhe</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- ================= PERSONAL ARTWORK ================= -->
+  <section id="personal" class="divider-top">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="num">04</span>
+        <h2>Personal Artwork</h2>
+        <span class="rule"></span>
+      </div>
+
+      <article class="project reveal">
+        <div class="project-head">
+          <h3 class="project-title">Personal<br>Artwork</h3>
+          <div class="project-meta">
+            <span class="project-tag">Personal Work</span>
+            <div class="project-roles">Illustration · Fanart</div>
+          </div>
+        </div>
+        <p class="project-blurb">
+          I usually create fan art and illustrations as a way to study different art styles, rendering techniques, compositions, and other visual elements. <br><br>Through this process, I continuously improve my skills and develop my artistic abilities.
+        </p>
+
+        <div class="cat-grid">
+          <div class="cat-block wide">
+            <div class="carousel">
+              <img class="slide active" src="images/2.jpg" alt="Personal artwork 1, replace with your artwork">
+              <img class="slide" src="images/73.jpg" alt="Personal artwork 2, replace with your artwork">
+              <img class="slide" src="images/70.jpg" alt="Personal artwork 3, replace with your artwork">
+              <img class="slide" src="images/71.jpg" alt="Personal artwork 4, replace with your artwork">
+              <img class="slide" src="images/72.jpg" alt="Personal artwork 5, replace with your artwork">
+              <button class="car-arrow prev" aria-label="Previous image"><svg viewBox="0 0 24 24" fill="none"><path d="M15 5 L8 12 L15 19" stroke-width="2"/></svg></button>
+              <button class="car-arrow next" aria-label="Next image"><svg viewBox="0 0 24 24" fill="none"><path d="M9 5 L16 12 L9 19" stroke-width="2"/></svg></button>
+              <div class="label"><b>Illustration &amp; Fanart</b><span class="counter"></span></div>
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ================= ABOUT ================= -->
+  <section id="about" class="divider-top">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="num">05</span>
+        <h2>About</h2>
+        <span class="rule"></span>
+      </div>
+
+      <div class="about-grid reveal">
+        <div class="about-portrait">
+          <div class="frame">
+            <img src="images/placeholder.svg" alt="Portrait of Lee Chang Zhe, replace with your own photo or self-portrait">
+            <div class="label"><b>Portrait</b><span>Self / Photo</span></div>
+          </div>
+        </div>
+
+        <div>
+          <p class="about-quote"><span class="mark-open">“</span>CREATING CHARACTERS, WORLDS, AND STORIES THROUGH ILLUSTRATION.</p>
+          <div class="about-body">
+            <p>
+              I'm Lee Chang Zhe (Joseph), a 2D artist and recent Illustration graduate passionate about creating characters and visual stories.<br> My work spans character design, environment concept art, splash illustrations, posters, and mascot design, developed through academic projects and original IPs including The Giant's Servant and Penguway.<br><br>Beyond academic projects, I also created an original picture book and an editorial fashion magazine, exploring visual storytelling, concept development, and editorial design.
+            </p>
+            <p>
+              As Art Director for our graduation exhibition, I led the overall visual direction, established the art style, and coordinated a student team to ensure a cohesive exhibition identity.<br><br>I enjoy creating original characters and worlds, bringing ideas to life through illustrations that combine strong visual storytelling with thoughtful design.
+            </p>
+          </div>
+
+          <div class="about-facts">
+            <div><div class="k">Education</div><div class="v">Diploma in Illustration, Dasein Academy of Art — 2026</div></div>
+            <div><div class="k">Based in</div><div class="v">Johor, Malaysia</div></div>
+            <div><div class="k">Software</div><div class="v">Photoshop, Illustrator, Premiere Pro, InDesign, LightRoom, Procreate</div></div>
+            <div><div class="k">Languages</div><div class="v">Chinese (Fluent)<br>English (Working Proficiency)</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= TOOLS ================= -->
+  <section class="divider-top reveal">
+    <div class="wrap">
+      <div class="tools-row">
+        <span>2D Concept Artist</span><span class="dot">•</span>
+        <span>Picture Book Artist</span>
+      </div>
+      <p class="lang-row"><b>Character Design</b> &nbsp;•&nbsp; <b>Visual Storytelling</b> &nbsp;•&nbsp; <b>Worldbuilding</b></p>
+    </div>
+  </section>
+
+</main>
+
+<!-- ================= FOOTER / CONTACT ================= -->
+<footer id="contact">
+  <div class="footer-inner">
+    <p class="eyebrow">Get In Touch</p>
+    <h2>Let's Create<br>something.</h2>
+    <span class="footer-label">Email</span>
+    <a class="footer-email" href="mailto:joseph.l.freelance@gmail.com">joseph.l.freelance@gmail.com</a>
+    <span class="footer-label" style="margin-top:6px;">Phone</span>
+    <a class="footer-phone" href="https://wa.me/60187710357">+6018-7710357</a>
+
+    <div class="footer-cols">
+      <div>
+        <div class="k">Location</div>
+        <span>Based in Johor, Malaysia<br>Available for Remote Work</span>
+      </div>
+      <div>
+        <div class="k">Portfolio</div>
+        <!-- Replace # with your real ArtStation / Behance / Instagram links -->
+        <a href="https://www.artstation.com/zeroxuan">ArtStation</a>
+        <a href="https://www.instagram.com/_zeroxuan_/">Instagram</a>
+      </div>
+      <div>
+        <div class="k">Resume</div>
+        <!-- Point this at your resume file once both are hosted together -->
+        <a href="https://drive.usercontent.google.com/download?id=1Lf0D9niFWZcfO7YpKROmf8ia8OMAPSVr&export=download&authuser=1&confirm=t&uuid=fc46aedc-fa9d-46bb-9a5c-9b4565d9167f&at=ABswASbFsh9SVb50zuYlhc4ihwfR:1784455649791">Download PDF</a>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2026 Lee Chang Zhe</span>
+      <span>2D Artist — Concept Design &amp; Illustration</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ================= LIGHTBOX (click any artwork to enlarge) ================= -->
+<div class="lightbox" id="lightbox" aria-hidden="true">
+  <button class="lb-close" id="lbClose" aria-label="Close">
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M5 5 L19 19 M19 5 L5 19"/></svg>
+  </button>
+  <button class="lb-arrow lb-prev" aria-label="Previous image">
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M15 5 L8 12 L15 19"/></svg>
+  </button>
+  <div class="lb-stage" id="lbStage">
+    <img id="lbImage" src="" alt="" style="display:none;">
+    <video id="lbVideo" controls autoplay style="display:none;"></video>
+  </div>
+  <button class="lb-arrow lb-next" aria-label="Next image">
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M9 5 L16 12 L9 19"/></svg>
+  </button>
+  <div class="lb-counter" id="lbCounter"></div>
+</div>
+
+<script>
+  // ---------- shared helpers ----------
+  function isVideoSlide(el){ return el.classList && el.classList.contains('video-slide'); }
+  function slideMediaEl(el){ return isVideoSlide(el) ? el.querySelector('video') : el; }
+  function slideSrc(el){
+    const m = slideMediaEl(el);
+    return m.currentSrc || m.getAttribute('src');
+  }
+  function slideAlt(el){ return el.getAttribute('alt') || ''; }
+
+  // measure the real media size and set the container's aspect-ratio to match
+  // (this is what makes every frame/carousel auto-fit your artwork instead of cropping it)
+  function matchAspect(container, el){
+    const media = slideMediaEl(el);
+    function apply(w, h){ if (w && h) container.style.aspectRatio = w + ' / ' + h; }
+    if (isVideoSlide(el)){
+      if (media.readyState >= 1 && media.videoWidth) apply(media.videoWidth, media.videoHeight);
+      else media.addEventListener('loadedmetadata', () => apply(media.videoWidth, media.videoHeight), { once:true });
+    } else {
+      if (media.complete && media.naturalWidth) apply(media.naturalWidth, media.naturalHeight);
+      else media.addEventListener('load', () => apply(media.naturalWidth, media.naturalHeight), { once:true });
+    }
+  }
+
+  // ---------- lightbox ----------
+  const lightbox   = document.getElementById('lightbox');
+  const lbStage     = document.getElementById('lbStage');
+  const lbImage     = document.getElementById('lbImage');
+  const lbVideo     = document.getElementById('lbVideo');
+  const lbCounter   = document.getElementById('lbCounter');
+  const lbPrevBtn   = document.querySelector('.lb-prev');
+  const lbNextBtn   = document.querySelector('.lb-next');
+  let lbSlides = [];
+  let lbIndex  = 0;
+  let lbApi    = null; // linked mini-carousel's goTo(), so both stay in sync
+
+  function openLightbox(slides, index, api){
+    lbSlides = slides; lbIndex = index; lbApi = api || null;
+    const multi = lbSlides.length > 1;
+    lbPrevBtn.hidden = !multi;
+    lbNextBtn.hidden = !multi;
+    renderLightbox();
+    lightbox.classList.add('open');
+    lightbox.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox(){
+    lightbox.classList.remove('open');
+    lightbox.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    lbVideo.pause();
+  }
+  function renderLightbox(){
+    const el = lbSlides[lbIndex];
+    if (isVideoSlide(el)){
+      lbVideo.src = slideSrc(el);
+      lbVideo.style.display = 'block';
+      lbImage.style.display = 'none';
+      lbVideo.load();
+    } else {
+      lbImage.src = slideSrc(el);
+      lbImage.alt = slideAlt(el);
+      lbImage.style.display = 'block';
+      lbVideo.style.display = 'none';
+      lbVideo.pause();
+    }
+    lbCounter.textContent = (lbIndex + 1) + ' / ' + lbSlides.length;
+    if (lbApi) lbApi(lbIndex);
+  }
+  function lbPrev(){ lbIndex = (lbIndex - 1 + lbSlides.length) % lbSlides.length; renderLightbox(); }
+  function lbNext(){ lbIndex = (lbIndex + 1) % lbSlides.length; renderLightbox(); }
+
+  document.getElementById('lbClose').addEventListener('click', closeLightbox);
+  lbPrevBtn.addEventListener('click', lbPrev);
+  lbNextBtn.addEventListener('click', lbNext);
+  lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
+  document.addEventListener('keydown', (e) => {
+    if (!lightbox.classList.contains('open')) return;
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowLeft') lbPrev();
+    if (e.key === 'ArrowRight') lbNext();
+  });
+
+  // ---------- category carousels ----------
+  document.querySelectorAll('.carousel').forEach(car => {
+    const slides  = Array.from(car.querySelectorAll('.slide'));
+    const prev    = car.querySelector('.car-arrow.prev');
+    const next    = car.querySelector('.car-arrow.next');
+    const counter = car.querySelector('.counter');
+    let idx = 0;
+
+    function pad(n){ return String(n).padStart(2, '0'); }
+    function render(){
+      slides.forEach((s, i) => {
+        const active = i === idx;
+        s.classList.toggle('active', active);
+        if (isVideoSlide(s) && !active) slideMediaEl(s).pause();
+      });
+      matchAspect(car, slides[idx]);
+      if (counter) counter.textContent = pad(idx + 1) + ' / ' + pad(slides.length);
+    }
+    function goTo(i){ idx = ((i % slides.length) + slides.length) % slides.length; render(); }
+
+    if (slides.length <= 1){
+      if (prev) prev.hidden = true;
+      if (next) next.hidden = true;
+    } else {
+      prev.addEventListener('click', () => goTo(idx - 1));
+      next.addEventListener('click', () => goTo(idx + 1));
+    }
+    slides.forEach((s, i) => {
+      s.addEventListener('click', () => openLightbox(slides, i, goTo));
+    });
+    render();
+  });
+
+  // ---------- standalone frames (e.g. About portrait) ----------
+  document.querySelectorAll('.frame').forEach(frame => {
+    const media = frame.querySelector('img, video');
+    if (!media) return;
+    matchAspect(frame, media);
+    media.addEventListener('click', () => openLightbox([media], 0, null));
+  });
+
+  // hero background slideshow — cycles every 2.8s, respects reduced-motion
+  (function(){
+    const imgs = document.querySelectorAll('#heroBg img');
+    if (imgs.length < 2) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    let i = 0;
+    setInterval(() => {
+      imgs[i].classList.remove('active');
+      i = (i + 1) % imgs.length;
+      imgs[i].classList.add('active');
+    }, 2800);
+  })();
+
+  // subtle reveal-on-scroll
+  const els = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { threshold: 0.12 });
+    els.forEach(el => io.observe(el));
+  } else {
+    els.forEach(el => el.classList.add('in'));
+  }
+</script>
+
+</body>
+</html>
